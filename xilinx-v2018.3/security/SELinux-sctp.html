@@ -1,0 +1,441 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SCTP SELinux Support &mdash; The Linux Kernel  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Kernel Self-Protection" href="self-protection.html" />
+    <link rel="prev" title="SCTP LSM Support" href="LSM-sctp.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> The Linux Kernel
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.19.0-xilinx-v2018.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../process/license-rules.html">Linux kernel licensing rules</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../admin-guide/index.html">The Linux kernel user’s and administrator’s guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userspace-api/index.html">The Linux kernel user-space API guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../process/index.html">Working with the kernel development community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev-tools/index.html">Development tools for the kernel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc-guide/index.html">How to write kernel documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel-hacking/index.html">Kernel Hacking Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trace/index.html">Linux Tracing Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintainer/index.html">Kernel Maintainer Handbook</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../driver-api/index.html">The Linux driver implementer’s API guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core-api/index.html">Core API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../media/index.html">Linux Media Subsystem Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../networking/index.html">Linux Networking Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../input/index.html">The Linux Input Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gpu/index.html">Linux GPU Driver Developer’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Security Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="credentials.html">Credentials in Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IMA-templates.html">IMA Template Management Mechanism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keys/index.html">Kernel Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LSM.html">Linux Security Module Development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LSM-sctp.html">SCTP LSM Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LSM-sctp.html#security-hooks-used-for-association-establishment">Security Hooks used for Association Establishment</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SCTP SELinux Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#security-hooks">Security Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#security-sctp-assoc-request">security_sctp_assoc_request()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#security-sctp-bind-connect">security_sctp_bind_connect()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#security-sctp-sk-clone">security_sctp_sk_clone()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#security-inet-conn-established">security_inet_conn_established()</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#policy-statements">Policy Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sctp-peer-labeling">SCTP Peer Labeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="self-protection.html">Kernel Self-Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tpm/index.html">Trusted Platform Module documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sound/index.html">Linux Sound Subsystem Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../crypto/index.html">Linux Kernel Crypto API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filesystems/index.html">Linux Filesystems API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vm/index.html">Linux Memory Management Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bpf/index.html">BPF Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sh/index.html">SuperH Interfaces Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../filesystems/ext4/index.html">ext4 Filesystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../translations/index.html">Translations</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Linux Kernel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Security Documentation</a> &raquo;</li>
+        
+      <li>SCTP SELinux Support</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/security/SELinux-sctp.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sctp-selinux-support">
+<h1>SCTP SELinux Support<a class="headerlink" href="#sctp-selinux-support" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="security-hooks">
+<h1>Security Hooks<a class="headerlink" href="#security-hooks" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal"><span class="pre">Documentation/security/LSM-sctp.rst</span></code> describes the following SCTP security
+hooks with the SELinux specifics expanded below:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>security_sctp_assoc_request()
+security_sctp_bind_connect()
+security_sctp_sk_clone()
+security_inet_conn_established()
+</pre></div>
+</div>
+<div class="section" id="security-sctp-assoc-request">
+<h2>security_sctp_assoc_request()<a class="headerlink" href="#security-sctp-assoc-request" title="Permalink to this headline">¶</a></h2>
+<p>Passes the <code class="docutils literal"><span class="pre">&#64;ep</span></code> and <code class="docutils literal"><span class="pre">&#64;chunk-&gt;skb</span></code> of the association INIT packet to the
+security module. Returns 0 on success, error on failure.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>@ep - pointer to sctp endpoint structure.
+@skb - pointer to skbuff of association packet.
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>The security module performs the following operations:</dt>
+<dd><p class="first">IF this is the first association on <code class="docutils literal"><span class="pre">&#64;ep-&gt;base.sk</span></code>, then set the peer
+sid to that in <code class="docutils literal"><span class="pre">&#64;skb</span></code>. This will ensure there is only one peer sid
+assigned to <code class="docutils literal"><span class="pre">&#64;ep-&gt;base.sk</span></code> that may support multiple associations.</p>
+<p>ELSE validate the <code class="docutils literal"><span class="pre">&#64;ep-&gt;base.sk</span> <span class="pre">peer_sid</span></code> against the <code class="docutils literal"><span class="pre">&#64;skb</span> <span class="pre">peer</span> <span class="pre">sid</span></code>
+to determine whether the association should be allowed or denied.</p>
+<p>Set the sctp <code class="docutils literal"><span class="pre">&#64;ep</span> <span class="pre">sid</span></code> to socket’s sid (from <code class="docutils literal"><span class="pre">ep-&gt;base.sk</span></code>) with
+MLS portion taken from <code class="docutils literal"><span class="pre">&#64;skb</span> <span class="pre">peer</span> <span class="pre">sid</span></code>. This will be used by SCTP
+TCP style sockets and peeled off connections as they cause a new socket
+to be generated.</p>
+<p class="last">If IP security options are configured (CIPSO/CALIPSO), then the ip
+options are set on the socket.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="security-sctp-bind-connect">
+<h2>security_sctp_bind_connect()<a class="headerlink" href="#security-sctp-bind-connect" title="Permalink to this headline">¶</a></h2>
+<p>Checks permissions required for ipv4/ipv6 addresses based on the <code class="docutils literal"><span class="pre">&#64;optname</span></code>
+as follows:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>------------------------------------------------------------------
+|                   BIND Permission Checks                       |
+|       @optname             |         @address contains         |
+|----------------------------|-----------------------------------|
+| SCTP_SOCKOPT_BINDX_ADD     | One or more ipv4 / ipv6 addresses |
+| SCTP_PRIMARY_ADDR          | Single ipv4 or ipv6 address       |
+| SCTP_SET_PEER_PRIMARY_ADDR | Single ipv4 or ipv6 address       |
+------------------------------------------------------------------
+
+------------------------------------------------------------------
+|                 CONNECT Permission Checks                      |
+|       @optname             |         @address contains         |
+|----------------------------|-----------------------------------|
+| SCTP_SOCKOPT_CONNECTX      | One or more ipv4 / ipv6 addresses |
+| SCTP_PARAM_ADD_IP          | One or more ipv4 / ipv6 addresses |
+| SCTP_SENDMSG_CONNECT       | Single ipv4 or ipv6 address       |
+| SCTP_PARAM_SET_PRIMARY     | Single ipv4 or ipv6 address       |
+------------------------------------------------------------------
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">Documentation/security/LSM-sctp.rst</span></code> gives a summary of the <code class="docutils literal"><span class="pre">&#64;optname</span></code>
+entries and also describes ASCONF chunk processing when Dynamic Address
+Reconfiguration is enabled.</p>
+</div>
+<div class="section" id="security-sctp-sk-clone">
+<h2>security_sctp_sk_clone()<a class="headerlink" href="#security-sctp-sk-clone" title="Permalink to this headline">¶</a></h2>
+<p>Called whenever a new socket is created by <strong>accept</strong>(2) (i.e. a TCP style
+socket) or when a socket is ‘peeled off’ e.g userspace calls
+<strong>sctp_peeloff</strong>(3). <code class="docutils literal"><span class="pre">security_sctp_sk_clone()</span></code> will set the new
+sockets sid and peer sid to that contained in the <code class="docutils literal"><span class="pre">&#64;ep</span> <span class="pre">sid</span></code> and
+<code class="docutils literal"><span class="pre">&#64;ep</span> <span class="pre">peer</span> <span class="pre">sid</span></code> respectively.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>@ep - pointer to current sctp endpoint structure.
+@sk - pointer to current sock structure.
+@sk - pointer to new sock structure.
+</pre></div>
+</div>
+</div>
+<div class="section" id="security-inet-conn-established">
+<h2>security_inet_conn_established()<a class="headerlink" href="#security-inet-conn-established" title="Permalink to this headline">¶</a></h2>
+<p>Called when a COOKIE ACK is received where it sets the connection’s peer sid
+to that in <code class="docutils literal"><span class="pre">&#64;skb</span></code>:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>@sk  - pointer to sock structure.
+@skb - pointer to skbuff of the COOKIE ACK packet.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="policy-statements">
+<h1>Policy Statements<a class="headerlink" href="#policy-statements" title="Permalink to this headline">¶</a></h1>
+<p>The following class and permissions to support SCTP are available within the
+kernel:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>class sctp_socket inherits socket { node_bind }
+</pre></div>
+</div>
+<p>whenever the following policy capability is enabled:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>policycap extended_socket_class;
+</pre></div>
+</div>
+<p>SELinux SCTP support adds the <code class="docutils literal"><span class="pre">name_connect</span></code> permission for connecting
+to a specific port type and the <code class="docutils literal"><span class="pre">association</span></code> permission that is explained
+in the section below.</p>
+<p>If userspace tools have been updated, SCTP will support the <code class="docutils literal"><span class="pre">portcon</span></code>
+statement as shown in the following example:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>portcon sctp 1024-1036 system_u:object_r:sctp_ports_t:s0
+</pre></div>
+</div>
+</div>
+<div class="section" id="sctp-peer-labeling">
+<h1>SCTP Peer Labeling<a class="headerlink" href="#sctp-peer-labeling" title="Permalink to this headline">¶</a></h1>
+<p>An SCTP socket will only have one peer label assigned to it. This will be
+assigned during the establishment of the first association. Any further
+associations on this socket will have their packet peer label compared to
+the sockets peer label, and only if they are different will the
+<code class="docutils literal"><span class="pre">association</span></code> permission be validated. This is validated by checking the
+socket peer sid against the received packets peer sid to determine whether
+the association should be allowed or denied.</p>
+<dl class="docutils">
+<dt>NOTES:</dt>
+<dd><ol class="first last arabic">
+<li><p class="first">If peer labeling is not enabled, then the peer context will always be
+<code class="docutils literal"><span class="pre">SECINITSID_UNLABELED</span></code> (<code class="docutils literal"><span class="pre">unlabeled_t</span></code> in Reference Policy).</p>
+</li>
+<li><p class="first">As SCTP can support more than one transport address per endpoint
+(multi-homing) on a single socket, it is possible to configure policy
+and NetLabel to provide different peer labels for each of these. As the
+socket peer label is determined by the first associations transport
+address, it is recommended that all peer labels are consistent.</p>
+</li>
+<li><p class="first"><strong>getpeercon</strong>(3) may be used by userspace to retrieve the sockets peer
+context.</p>
+</li>
+<li><p class="first">While not SCTP specific, be aware when using NetLabel that if a label
+is assigned to a specific interface, and that interface ‘goes down’,
+then the NetLabel service will remove the entry. Therefore ensure that
+the network startup scripts call <strong>netlabelctl</strong>(8) to set the required
+label (see <strong>netlabel-config</strong>(8) helper script for details).</p>
+</li>
+<li><p class="first">The NetLabel SCTP peer labeling rules apply as discussed in the following
+set of posts tagged “netlabel” at: <a class="reference external" href="http://www.paul-moore.com/blog/t">http://www.paul-moore.com/blog/t</a>.</p>
+</li>
+<li><p class="first">CIPSO is only supported for IPv4 addressing: <code class="docutils literal"><span class="pre">socket(AF_INET,</span> <span class="pre">...)</span></code>
+CALIPSO is only supported for IPv6 addressing: <code class="docutils literal"><span class="pre">socket(AF_INET6,</span> <span class="pre">...)</span></code></p>
+<dl class="docutils">
+<dt>Note the following when testing CIPSO/CALIPSO:</dt>
+<dd><ol class="first last loweralpha simple">
+<li>CIPSO will send an ICMP packet if an SCTP packet cannot be
+delivered because of an invalid label.</li>
+<li>CALIPSO does not send an ICMP packet, just silently discards it.</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><p class="first">IPSEC is not supported as RFC 3554 - sctp/ipsec support has not been
+implemented in userspace (<strong>racoon</strong>(8) or <strong>ipsec_pluto</strong>(8)),
+although the kernel supports SCTP/IPSEC.</p>
+</li>
+</ol>
+</dd>
+</dl>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="self-protection.html" class="btn btn-neutral float-right" title="Kernel Self-Protection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="LSM-sctp.html" class="btn btn-neutral" title="SCTP LSM Support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright The kernel development community
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

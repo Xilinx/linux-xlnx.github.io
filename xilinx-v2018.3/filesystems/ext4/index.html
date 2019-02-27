@@ -1,0 +1,358 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ext4 Filesystem &mdash; The Linux Kernel  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="1. General Information" href="ext4.html" />
+    <link rel="prev" title="SuperH Interfaces Guide" href="../../sh/index.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> The Linux Kernel
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.19.0-xilinx-v2018.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../process/license-rules.html">Linux kernel licensing rules</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../admin-guide/index.html">The Linux kernel user’s and administrator’s guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../userspace-api/index.html">The Linux kernel user-space API guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../process/index.html">Working with the kernel development community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev-tools/index.html">Development tools for the kernel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../doc-guide/index.html">How to write kernel documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../kernel-hacking/index.html">Kernel Hacking Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../trace/index.html">Linux Tracing Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintainer/index.html">Kernel Maintainer Handbook</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../driver-api/index.html">The Linux driver implementer’s API guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core-api/index.html">Core API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../media/index.html">Linux Media Subsystem Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../networking/index.html">Linux Networking Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../input/index.html">The Linux Input Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpu/index.html">Linux GPU Driver Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sound/index.html">Linux Sound Subsystem Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../crypto/index.html">Linux Kernel Crypto API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Linux Filesystems API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../vm/index.html">Linux Memory Management Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bpf/index.html">BPF Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../sh/index.html">SuperH Interfaces Guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ext4 Filesystem</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ext4.html">1. General Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ondisk/index.html">2. Data Structures and Algorithms</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../translations/index.html">Translations</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">The Linux Kernel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>ext4 Filesystem</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/filesystems/ext4/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ext4-filesystem">
+<h1>ext4 Filesystem<a class="headerlink" href="#ext4-filesystem" title="Permalink to this headline">¶</a></h1>
+<p>General usage and on-disk artifacts writen by ext4.  More documentation may
+be ported from the wiki as time permits.  This should be considered the
+canonical source of information as the details here have been reviewed by
+the ext4 community.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ext4.html">1. General Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ext4.html#quick-usage-instructions">1.1. Quick usage instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ext4.html#features">1.2. Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ext4.html#currently-available">1.2.1. Currently Available</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ext4.html#options">1.3. Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ext4.html#data-mode">1.4. Data Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ext4.html#proc-entries">1.5. /proc entries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ext4.html#sys-entries">1.6. /sys entries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ext4.html#ioctls">1.7. Ioctls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ext4.html#references">1.8. References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ondisk/index.html">2. Data Structures and Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ondisk/index.html#about-this-book">2.1. About this Book</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#license">2.1.1. License</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#terminology">2.1.2. Terminology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#other-references">2.1.3. Other References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ondisk/index.html#high-level-design">2.2. High Level Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#blocks">2.2.1. Blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#layout">2.2.2. Layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#flexible-block-groups">2.2.3. Flexible Block Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#meta-block-groups">2.2.4. Meta Block Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#lazy-block-group-initialization">2.2.5. Lazy Block Group Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#special-inodes">2.2.6. Special inodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#block-and-inode-allocation-policy">2.2.7. Block and Inode Allocation Policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#checksums">2.2.8. Checksums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#bigalloc">2.2.9. Bigalloc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#inline-data">2.2.10. Inline Data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#inline-directories">2.2.10.1. Inline Directories</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#large-extended-attribute-values">2.2.11. Large Extended Attribute Values</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ondisk/index.html#global-structures">2.3. Global Structures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#super-block">2.3.1. Super Block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#block-group-descriptors">2.3.2. Block Group Descriptors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#block-and-inode-bitmaps">2.3.3. Block and inode Bitmaps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#inode-table">2.3.4. Inode Table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#multiple-mount-protection">2.3.5. Multiple Mount Protection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#journal-jbd2">2.3.6. Journal (jbd2)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#id1">2.3.6.1. Layout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#external-journal">2.3.6.2. External Journal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#block-header">2.3.6.3. Block Header</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#id2">2.3.6.4. Super Block</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#descriptor-block">2.3.6.5. Descriptor Block</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#data-block">2.3.6.6. Data Block</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#revocation-block">2.3.6.7. Revocation Block</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#commit-block">2.3.6.8. Commit Block</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ondisk/index.html#dynamic-structures">2.4. Dynamic Structures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#index-nodes">2.4.1. Index Nodes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#inode-size">2.4.1.1. Inode Size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#finding-an-inode">2.4.1.2. Finding an Inode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#inode-timestamps">2.4.1.3. Inode Timestamps</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#the-contents-of-inode-i-block">2.4.2. The Contents of inode.i_block</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#symbolic-links">2.4.2.1. Symbolic Links</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#direct-indirect-block-addressing">2.4.2.2. Direct/Indirect Block Addressing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#extent-tree">2.4.2.3. Extent Tree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#id3">2.4.2.4. Inline Data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#directory-entries">2.4.3. Directory Entries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#linear-classic-directories">2.4.3.1. Linear (Classic) Directories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#hash-tree-directories">2.4.3.2. Hash Tree Directories</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ondisk/index.html#extended-attributes">2.4.4. Extended Attributes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#attribute-name-indices">2.4.4.1. Attribute Name Indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ondisk/index.html#posix-acls">2.4.4.2. POSIX ACLs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ext4.html" class="btn btn-neutral float-right" title="1. General Information" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../../sh/index.html" class="btn btn-neutral" title="SuperH Interfaces Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright The kernel development community
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
