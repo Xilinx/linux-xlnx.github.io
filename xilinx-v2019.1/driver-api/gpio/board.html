@@ -1,0 +1,513 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>GPIO Mappings &mdash; The Linux Kernel  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="The Linux Kernel  documentation" href="../../index.html"/>
+        <link rel="up" title="General Purpose Input/Output (GPIO)" href="index.html"/>
+        <link rel="next" title="Subsystem drivers using GPIO" href="drivers-on-gpio.html"/>
+        <link rel="prev" title="GPIO Descriptor Consumer Interface" href="consumer.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> The Linux Kernel
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.19.0-xilinx-v2019.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../process/license-rules.html">Linux kernel licensing rules</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../admin-guide/index.html">The Linux kernel user&#8217;s and administrator&#8217;s guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../userspace-api/index.html">The Linux kernel user-space API guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../process/index.html">Working with the kernel development community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev-tools/index.html">Development tools for the kernel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../doc-guide/index.html">How to write kernel documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../kernel-hacking/index.html">Kernel Hacking Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../trace/index.html">Linux Tracing Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintainer/index.html">Kernel Maintainer Handbook</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">The Linux driver implementer&#8217;s API guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../basics.html">Driver Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infrastructure.html">Device drivers infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pm/index.html">Device Power Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clk.html">The Common Clk Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../device-io.html">Bus-Independent Device Accesses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../device_connection.html">Device connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dma-buf.html">Buffer Sharing and Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../device_link.html">Device links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../message-based.html">Message-based devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound.html">Sound Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../frame-buffer.html">Frame Buffer Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator.html">Voltage and current regulator API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio/index.html">Industrial I/O</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input.html">Input Subsystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usb/index.html">Linux USB API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pci.html">PCI Support Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pci.html#pci-hotplug-support-library">PCI Hotplug Support Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spi.html">Serial Peripheral Interface (SPI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../i2c.html">I<sup>2</sup>C and SMBus Subsystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hsi.html">High Speed Synchronous Serial Interface (HSI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../edac.html">Error Detection And Correction (EDAC) Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsi.html">SCSI Interfaces Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libata.html">libATA Developer&#8217;s Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../target.html">target and iSCSI Interfaces Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mtdnand.html">MTD NAND Driver Programming Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous.html">Parallel Port Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous.html#x50-uart-driver">16x50 UART Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous.html#pulse-width-modulation-pwm">Pulse-Width Modulation (PWM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../w1.html">W1: Dallas&#8217; 1-wire bus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rapidio.html">RapidIO Subsystem Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../s390-drivers.html">Writing s390 channel device drivers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vme.html">VME Device Drivers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../80211/index.html">Linux 802.11 Driver Developer&#8217;s Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uio-howto.html">The Userspace I/O HOWTO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../firmware/index.html">Linux Firmware API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pinctl.html">PINCTRL (PIN CONTROL) subsystem</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">General Purpose Input/Output (GPIO)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="driver.html">GPIO Descriptor Driver Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="consumer.html">GPIO Descriptor Consumer Interface</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">GPIO Mappings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#device-tree">Device Tree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#acpi">ACPI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#platform-data">Platform Data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="drivers-on-gpio.html">Subsystem drivers using GPIO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="legacy.html">Legacy GPIO Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#core">Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#acpi-support">ACPI support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#device-tree-support">Device tree support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#device-managed-api">Device-managed API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#sysfs-helpers">sysfs helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../misc_devices.html">Miscellaneous Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dmaengine/index.html">DMAEngine documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../slimbus.html">Linux kernel SLIMbus support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundwire/index.html">SoundWire Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fpga/index.html">FPGA Subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../core-api/index.html">Core API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../media/index.html">Linux Media Subsystem Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../networking/index.html">Linux Networking Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../input/index.html">The Linux Input Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpu/index.html">Linux GPU Driver Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sound/index.html">Linux Sound Subsystem Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../crypto/index.html">Linux Kernel Crypto API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../filesystems/index.html">Linux Filesystems API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../vm/index.html">Linux Memory Management Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bpf/index.html">BPF Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../misc-devices/index.html">Assorted Miscellaneous Devices Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../sh/index.html">SuperH Interfaces Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../filesystems/ext4/index.html">ext4 Filesystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../translations/index.html">Translations</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">The Linux Kernel</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">The Linux driver implementer&#8217;s API guide</a> &raquo;</li>
+      
+          <li><a href="index.html">General Purpose Input/Output (GPIO)</a> &raquo;</li>
+      
+    <li>GPIO Mappings</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/driver-api/gpio/board.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gpio-mappings">
+<h1>GPIO Mappings<a class="headerlink" href="#gpio-mappings" title="Permalink to this headline">¶</a></h1>
+<p>This document explains how GPIOs can be assigned to given devices and functions.</p>
+<p>Note that it only applies to the new descriptor-based interface. For a
+description of the deprecated integer-based GPIO interface please refer to
+gpio-legacy.txt (actually, there is no real mapping possible with the old
+interface; you just fetch an integer from somewhere and request the
+corresponding GPIO).</p>
+<p>All platforms can enable the GPIO library, but if the platform strictly
+requires GPIO functionality to be present, it needs to select GPIOLIB from its
+Kconfig. Then, how GPIOs are mapped depends on what the platform uses to
+describe its hardware layout. Currently, mappings can be defined through device
+tree, ACPI, and platform data.</p>
+<div class="section" id="device-tree">
+<h2>Device Tree<a class="headerlink" href="#device-tree" title="Permalink to this headline">¶</a></h2>
+<p>GPIOs can easily be mapped to devices and functions in the device tree. The
+exact way to do it depends on the GPIO controller providing the GPIOs, see the
+device tree bindings for your controller.</p>
+<p>GPIOs mappings are defined in the consumer device&#8217;s node, in a property named
+&lt;function&gt;-gpios, where &lt;function&gt; is the function the driver will request
+through gpiod_get(). For example:</p>
+<div class="highlight-none"><div class="highlight"><pre>foo_device {
+        compatible = &quot;acme,foo&quot;;
+        ...
+        led-gpios = &lt;&amp;gpio 15 GPIO_ACTIVE_HIGH&gt;, /* red */
+                    &lt;&amp;gpio 16 GPIO_ACTIVE_HIGH&gt;, /* green */
+                    &lt;&amp;gpio 17 GPIO_ACTIVE_HIGH&gt;; /* blue */
+
+        power-gpios = &lt;&amp;gpio 1 GPIO_ACTIVE_LOW&gt;;
+};
+</pre></div>
+</div>
+<p>Properties named &lt;function&gt;-gpio are also considered valid and old bindings use
+it but are only supported for compatibility reasons and should not be used for
+newer bindings since it has been deprecated.</p>
+<p>This property will make GPIOs 15, 16 and 17 available to the driver under the
+&#8220;led&#8221; function, and GPIO 1 as the &#8220;power&#8221; GPIO:</p>
+<div class="highlight-none"><div class="highlight"><pre>struct gpio_desc *red, *green, *blue, *power;
+
+red = gpiod_get_index(dev, &quot;led&quot;, 0, GPIOD_OUT_HIGH);
+green = gpiod_get_index(dev, &quot;led&quot;, 1, GPIOD_OUT_HIGH);
+blue = gpiod_get_index(dev, &quot;led&quot;, 2, GPIOD_OUT_HIGH);
+
+power = gpiod_get(dev, &quot;power&quot;, GPIOD_OUT_HIGH);
+</pre></div>
+</div>
+<p>The led GPIOs will be active high, while the power GPIO will be active low (i.e.
+gpiod_is_active_low(power) will be true).</p>
+<p>The second parameter of the gpiod_get() functions, the con_id string, has to be
+the &lt;function&gt;-prefix of the GPIO suffixes (&#8220;gpios&#8221; or &#8220;gpio&#8221;, automatically
+looked up by the gpiod functions internally) used in the device tree. With above
+&#8220;led-gpios&#8221; example, use the prefix without the &#8220;-&#8221; as con_id parameter: &#8220;led&#8221;.</p>
+<p>Internally, the GPIO subsystem prefixes the GPIO suffix (&#8220;gpios&#8221; or &#8220;gpio&#8221;)
+with the string passed in con_id to get the resulting string
+(<code class="docutils literal"><span class="pre">snprintf(...</span> <span class="pre">&quot;%s-%s&quot;,</span> <span class="pre">con_id,</span> <span class="pre">gpio_suffixes[]</span></code>).</p>
+</div>
+<div class="section" id="acpi">
+<h2>ACPI<a class="headerlink" href="#acpi" title="Permalink to this headline">¶</a></h2>
+<p>ACPI also supports function names for GPIOs in a similar fashion to DT.
+The above DT example can be converted to an equivalent ACPI description
+with the help of _DSD (Device Specific Data), introduced in ACPI 5.1:</p>
+<div class="highlight-none"><div class="highlight"><pre>Device (FOO) {
+        Name (_CRS, ResourceTemplate () {
+                GpioIo (Exclusive, ..., IoRestrictionOutputOnly,
+                        &quot;\\_SB.GPI0&quot;) {15} // red
+                GpioIo (Exclusive, ..., IoRestrictionOutputOnly,
+                        &quot;\\_SB.GPI0&quot;) {16} // green
+                GpioIo (Exclusive, ..., IoRestrictionOutputOnly,
+                        &quot;\\_SB.GPI0&quot;) {17} // blue
+                GpioIo (Exclusive, ..., IoRestrictionOutputOnly,
+                        &quot;\\_SB.GPI0&quot;) {1} // power
+        })
+
+        Name (_DSD, Package () {
+                ToUUID(&quot;daffd814-6eba-4d8c-8a91-bc9bbf4aa301&quot;),
+                Package () {
+                        Package () {
+                                &quot;led-gpios&quot;,
+                                Package () {
+                                        ^FOO, 0, 0, 1,
+                                        ^FOO, 1, 0, 1,
+                                        ^FOO, 2, 0, 1,
+                                }
+                        },
+                        Package () {
+                                &quot;power-gpios&quot;,
+                                Package () {^FOO, 3, 0, 0},
+                        },
+                }
+        })
+}
+</pre></div>
+</div>
+<p>For more information about the ACPI GPIO bindings see
+Documentation/acpi/gpio-properties.txt.</p>
+</div>
+<div class="section" id="platform-data">
+<h2>Platform Data<a class="headerlink" href="#platform-data" title="Permalink to this headline">¶</a></h2>
+<p>Finally, GPIOs can be bound to devices and functions using platform data. Board
+files that desire to do so need to include the following header:</p>
+<div class="highlight-none"><div class="highlight"><pre>#include &lt;linux/gpio/machine.h&gt;
+</pre></div>
+</div>
+<p>GPIOs are mapped by the means of tables of lookups, containing instances of the
+gpiod_lookup structure. Two macros are defined to help declaring such mappings:</p>
+<div class="highlight-none"><div class="highlight"><pre>GPIO_LOOKUP(chip_label, chip_hwnum, con_id, flags)
+GPIO_LOOKUP_IDX(chip_label, chip_hwnum, con_id, idx, flags)
+</pre></div>
+</div>
+<p>where</p>
+<blockquote>
+<div><ul>
+<li><p class="first">chip_label is the label of the gpiod_chip instance providing the GPIO</p>
+</li>
+<li><p class="first">chip_hwnum is the hardware number of the GPIO within the chip</p>
+</li>
+<li><dl class="first docutils">
+<dt>con_id is the name of the GPIO function from the device point of view. It</dt>
+<dd><p class="first last">can be NULL, in which case it will match any function.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">idx is the index of the GPIO within the function.</p>
+</li>
+<li><dl class="first docutils">
+<dt>flags is defined to specify the following properties:</dt>
+<dd><ul class="first last">
+<li><p class="first">GPIO_ACTIVE_HIGH      - GPIO line is active high</p>
+</li>
+<li><p class="first">GPIO_ACTIVE_LOW       - GPIO line is active low</p>
+</li>
+<li><p class="first">GPIO_OPEN_DRAIN       - GPIO line is set up as open drain</p>
+</li>
+<li><p class="first">GPIO_OPEN_SOURCE      - GPIO line is set up as open source</p>
+</li>
+<li><dl class="first docutils">
+<dt>GPIO_PERSISTENT       - GPIO line is persistent during</dt>
+<dd><p class="first last">suspend/resume and maintains its value</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>GPIO_TRANSITORY       - GPIO line is transitory and may loose its</dt>
+<dd><p class="first last">electrical state during suspend/resume</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>In the future, these flags might be extended to support more properties.</p>
+<p>Note that GPIO_LOOKUP() is just a shortcut to GPIO_LOOKUP_IDX() where idx = 0.</p>
+<p>A lookup table can then be defined as follows, with an empty entry defining its
+end. The &#8216;dev_id&#8217; field of the table is the identifier of the device that will
+make use of these GPIOs. It can be NULL, in which case it will be matched for
+calls to gpiod_get() with a NULL device.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">gpiod_lookup_table</span> <span class="n">gpios_table</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">dev_id</span> <span class="o">=</span> <span class="s">&quot;foo.0&quot;</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">table</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">GPIO_LOOKUP_IDX</span><span class="p">(</span><span class="s">&quot;gpio.0&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="s">&quot;led&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">GPIO_ACTIVE_HIGH</span><span class="p">),</span>
+                <span class="n">GPIO_LOOKUP_IDX</span><span class="p">(</span><span class="s">&quot;gpio.0&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="s">&quot;led&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">GPIO_ACTIVE_HIGH</span><span class="p">),</span>
+                <span class="n">GPIO_LOOKUP_IDX</span><span class="p">(</span><span class="s">&quot;gpio.0&quot;</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="s">&quot;led&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">GPIO_ACTIVE_HIGH</span><span class="p">),</span>
+                <span class="n">GPIO_LOOKUP</span><span class="p">(</span><span class="s">&quot;gpio.0&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;power&quot;</span><span class="p">,</span> <span class="n">GPIO_ACTIVE_LOW</span><span class="p">),</span>
+                <span class="p">{</span> <span class="p">},</span>
+        <span class="p">},</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>And the table can be added by the board code as follows:</p>
+<div class="highlight-none"><div class="highlight"><pre>gpiod_add_lookup_table(&amp;gpios_table);
+</pre></div>
+</div>
+<p>The driver controlling &#8220;foo.0&#8221; will then be able to obtain its GPIOs as follows:</p>
+<div class="highlight-none"><div class="highlight"><pre>struct gpio_desc *red, *green, *blue, *power;
+
+red = gpiod_get_index(dev, &quot;led&quot;, 0, GPIOD_OUT_HIGH);
+green = gpiod_get_index(dev, &quot;led&quot;, 1, GPIOD_OUT_HIGH);
+blue = gpiod_get_index(dev, &quot;led&quot;, 2, GPIOD_OUT_HIGH);
+
+power = gpiod_get(dev, &quot;power&quot;, GPIOD_OUT_HIGH);
+</pre></div>
+</div>
+<p>Since the &#8220;led&#8221; GPIOs are mapped as active-high, this example will switch their
+signals to 1, i.e. enabling the LEDs. And for the &#8220;power&#8221; GPIO, which is mapped
+as active-low, its actual signal will be 0 after this code. Contrary to the
+legacy integer GPIO interface, the active-low property is handled during
+mapping and is thus transparent to GPIO consumers.</p>
+<p>A set of functions such as gpiod_set_value() is available to work with
+the new descriptor-oriented interface.</p>
+<p>Boards using platform data can also hog GPIO lines by defining GPIO hog tables.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">gpiod_hog</span> <span class="n">gpio_hog_table</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">GPIO_HOG</span><span class="p">(</span><span class="s">&quot;gpio.0&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s">&quot;foo&quot;</span><span class="p">,</span> <span class="n">GPIO_ACTIVE_LOW</span><span class="p">,</span> <span class="n">GPIOD_OUT_HIGH</span><span class="p">),</span>
+        <span class="p">{</span> <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>And the table can be added to the board code as follows:</p>
+<div class="highlight-none"><div class="highlight"><pre>gpiod_add_hogs(gpio_hog_table);
+</pre></div>
+</div>
+<p>The line will be hogged as soon as the gpiochip is created or - in case the
+chip was created earlier - when the hog table is registered.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="drivers-on-gpio.html" class="btn btn-neutral float-right" title="Subsystem drivers using GPIO" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="consumer.html" class="btn btn-neutral" title="GPIO Descriptor Consumer Interface" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright The kernel development community.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

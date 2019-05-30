@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>System Trace Module &mdash; The Linux Kernel  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="The Linux Kernel  documentation" href="../index.html"/>
+        <link rel="up" title="Linux Tracing Technologies" href="index.html"/>
+        <link rel="next" title="Kernel Maintainer Handbook" href="../maintainer/index.html"/>
+        <link rel="prev" title="Intel(R) Trace Hub (TH)" href="intel_th.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> The Linux Kernel
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.19.0-xilinx-v2019.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../process/license-rules.html">Linux kernel licensing rules</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../admin-guide/index.html">The Linux kernel user&#8217;s and administrator&#8217;s guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userspace-api/index.html">The Linux kernel user-space API guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../process/index.html">Working with the kernel development community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev-tools/index.html">Development tools for the kernel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc-guide/index.html">How to write kernel documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel-hacking/index.html">Kernel Hacking Guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux Tracing Technologies</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ftrace-design.html">Function Tracer Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracepoint-analysis.html">Notes on Analysing Behaviour Using Events and Tracepoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ftrace.html">ftrace - Function Tracer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ftrace-uses.html">Using ftrace to hook to functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kprobetrace.html">Kprobe-based Event Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uprobetracer.html">Uprobe-tracer: Uprobe-based Event Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracepoints.html">Using the Linux Kernel Tracepoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Event Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events-kmem.html">Subsystem Trace Points: kmem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events-power.html">Subsystem Trace Points: power</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events-nmi.html">NMI Trace Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events-msr.html">MSR Trace Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mmiotrace.html">In-kernel memory-mapped I/O tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="histogram.html">Event Histograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hwlat_detector.html">Hardware Latency Detector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intel_th.html">Intel(R) Trace Hub (TH)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">System Trace Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#stm-source">stm_source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stm-console">stm_console</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stm-ftrace">stm_ftrace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../maintainer/index.html">Kernel Maintainer Handbook</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../driver-api/index.html">The Linux driver implementer&#8217;s API guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core-api/index.html">Core API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../media/index.html">Linux Media Subsystem Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../networking/index.html">Linux Networking Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../input/index.html">The Linux Input Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gpu/index.html">Linux GPU Driver Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sound/index.html">Linux Sound Subsystem Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../crypto/index.html">Linux Kernel Crypto API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filesystems/index.html">Linux Filesystems API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vm/index.html">Linux Memory Management Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bpf/index.html">BPF Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc-devices/index.html">Assorted Miscellaneous Devices Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sh/index.html">SuperH Interfaces Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../filesystems/ext4/index.html">ext4 Filesystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../translations/index.html">Translations</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">The Linux Kernel</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Linux Tracing Technologies</a> &raquo;</li>
+      
+    <li>System Trace Module</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/trace/stm.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="system-trace-module">
+<h1>System Trace Module<a class="headerlink" href="#system-trace-module" title="Permalink to this headline">¶</a></h1>
+<p>System Trace Module (STM) is a device described in MIPI STP specs as
+STP trace stream generator. STP (System Trace Protocol) is a trace
+protocol multiplexing data from multiple trace sources, each one of
+which is assigned a unique pair of master and channel. While some of
+these masters and channels are statically allocated to certain
+hardware trace sources, others are available to software. Software
+trace sources are usually free to pick for themselves any
+master/channel combination from this pool.</p>
+<p>On the receiving end of this STP stream (the decoder side), trace
+sources can only be identified by master/channel combination, so in
+order for the decoder to be able to make sense of the trace that
+involves multiple trace sources, it needs to be able to map those
+master/channel pairs to the trace sources that it understands.</p>
+<p>For instance, it is helpful to know that syslog messages come on
+master 7 channel 15, while arbitrary user applications can use masters
+48 to 63 and channels 0 to 127.</p>
+<p>To solve this mapping problem, stm class provides a policy management
+mechanism via configfs, that allows defining rules that map string
+identifiers to ranges of masters and channels. If these rules (policy)
+are consistent with what decoder expects, it will be able to properly
+process the trace data.</p>
+<p>This policy is a tree structure containing rules (policy_node) that
+have a name (string identifier) and a range of masters and channels
+associated with it, located in &#8220;stp-policy&#8221; subsystem directory in
+configfs. The topmost directory&#8217;s name (the policy) is formatted as
+the STM device name to which this policy applies and and arbitrary
+string identifier separated by a stop. From the examle above, a rule
+may look like this:</p>
+<div class="highlight-none"><div class="highlight"><pre>$ ls /config/stp-policy/dummy_stm.my-policy/user
+channels masters
+$ cat /config/stp-policy/dummy_stm.my-policy/user/masters
+48 63
+$ cat /config/stp-policy/dummy_stm.my-policy/user/channels
+0 127
+</pre></div>
+</div>
+<p>which means that the master allocation pool for this rule consists of
+masters 48 through 63 and channel allocation pool has channels 0
+through 127 in it. Now, any producer (trace source) identifying itself
+with &#8220;user&#8221; identification string will be allocated a master and
+channel from within these ranges.</p>
+<p>These rules can be nested, for example, one can define a rule &#8220;dummy&#8221;
+under &#8220;user&#8221; directory from the example above and this new rule will
+be used for trace sources with the id string of &#8220;user/dummy&#8221;.</p>
+<p>Trace sources have to open the stm class device&#8217;s node and write their
+trace data into its file descriptor. In order to identify themselves
+to the policy, they need to do a STP_POLICY_ID_SET ioctl on this file
+descriptor providing their id string. Otherwise, they will be
+automatically allocated a master/channel pair upon first write to this
+file descriptor according to the &#8220;default&#8221; rule of the policy, if such
+exists.</p>
+<p>Some STM devices may allow direct mapping of the channel mmio regions
+to userspace for zero-copy writing. One mappable page (in terms of
+mmu) will usually contain multiple channels&#8217; mmios, so the user will
+need to allocate that many channels to themselves (via the
+aforementioned ioctl() call) to be able to do this. That is, if your
+stm device&#8217;s channel mmio region is 64 bytes and hardware page size is
+4096 bytes, after a successful STP_POLICY_ID_SET ioctl() call with
+width==64, you should be able to mmap() one page on this file
+descriptor and obtain direct access to an mmio region for 64 channels.</p>
+<p>Examples of STM devices are Intel(R) Trace Hub [1] and Coresight STM
+[2].</p>
+<div class="section" id="stm-source">
+<h2>stm_source<a class="headerlink" href="#stm-source" title="Permalink to this headline">¶</a></h2>
+<p>For kernel-based trace sources, there is &#8220;stm_source&#8221; device
+class. Devices of this class can be connected and disconnected to/from
+stm devices at runtime via a sysfs attribute called &#8220;stm_source_link&#8221;
+by writing the name of the desired stm device there, for example:</p>
+<div class="highlight-none"><div class="highlight"><pre>$ echo dummy_stm.0 &gt; /sys/class/stm_source/console/stm_source_link
+</pre></div>
+</div>
+<p>For examples on how to use stm_source interface in the kernel, refer
+to stm_console, stm_heartbeat or stm_ftrace drivers.</p>
+<p>Each stm_source device will need to assume a master and a range of
+channels, depending on how many channels it requires. These are
+allocated for the device according to the policy configuration. If
+there&#8217;s a node in the root of the policy directory that matches the
+stm_source device&#8217;s name (for example, &#8220;console&#8221;), this node will be
+used to allocate master and channel numbers. If there&#8217;s no such policy
+node, the stm core will pick the first contiguous chunk of channels
+within the first available master. Note that the node must exist
+before the stm_source device is connected to its stm device.</p>
+</div>
+<div class="section" id="stm-console">
+<h2>stm_console<a class="headerlink" href="#stm-console" title="Permalink to this headline">¶</a></h2>
+<p>One implementation of this interface also used in the example above is
+the &#8220;stm_console&#8221; driver, which basically provides a one-way console
+for kernel messages over an stm device.</p>
+<p>To configure the master/channel pair that will be assigned to this
+console in the STP stream, create a &#8220;console&#8221; policy entry (see the
+beginning of this text on how to do that). When initialized, it will
+consume one channel.</p>
+</div>
+<div class="section" id="stm-ftrace">
+<h2>stm_ftrace<a class="headerlink" href="#stm-ftrace" title="Permalink to this headline">¶</a></h2>
+<p>This is another &#8220;stm_source&#8221; device, once the stm_ftrace has been
+linked with an stm device, and if &#8220;function&#8221; tracer is enabled,
+function address and parent function address which Ftrace subsystem
+would store into ring buffer will be exported via the stm device at
+the same time.</p>
+<p>Currently only Ftrace &#8220;function&#8221; tracer is supported.</p>
+<ul class="simple">
+<li>[1] <a class="reference external" href="https://software.intel.com/sites/default/files/managed/d3/3c/intel-th-developer-manual.pdf">https://software.intel.com/sites/default/files/managed/d3/3c/intel-th-developer-manual.pdf</a></li>
+<li>[2] <a class="reference external" href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0444b/index.html">http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0444b/index.html</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../maintainer/index.html" class="btn btn-neutral float-right" title="Kernel Maintainer Handbook" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="intel_th.html" class="btn btn-neutral" title="Intel(R) Trace Hub (TH)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright The kernel development community.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

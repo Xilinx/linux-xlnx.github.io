@@ -1,0 +1,386 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Linux Networking Documentation &mdash; The Linux Kernel  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="The Linux Kernel  documentation" href="../index.html"/>
+        <link rel="next" title="netdev FAQ" href="netdev-FAQ.html"/>
+        <link rel="prev" title="1. Pulse-Eight CEC Adapter driver" href="../media/cec-drivers/pulse8-cec.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> The Linux Kernel
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.19.0-xilinx-v2019.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../process/license-rules.html">Linux kernel licensing rules</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../admin-guide/index.html">The Linux kernel user&#8217;s and administrator&#8217;s guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userspace-api/index.html">The Linux kernel user-space API guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../process/index.html">Working with the kernel development community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev-tools/index.html">Development tools for the kernel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc-guide/index.html">How to write kernel documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kernel-hacking/index.html">Kernel Hacking Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trace/index.html">Linux Tracing Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintainer/index.html">Kernel Maintainer Handbook</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../driver-api/index.html">The Linux driver implementer&#8217;s API guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core-api/index.html">Core API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../media/index.html">Linux Media Subsystem Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Linux Networking Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html">netdev FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="af_xdp.html">AF_XDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="batman-adv.html">batman-adv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="can.html">SocketCAN - Controller Area Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="can_ucan_protocol.html">The UCAN Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpaa2/index.html">DPAA2 Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="e100.html">Linux* Base Driver for the Intel(R) PRO/100 Family of Adapters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="e1000.html">Linux* Base Driver for Intel(R) Ethernet Network Connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kapi.html">Linux Networking and Network Devices APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="z8530book.html">Z8530 Programming Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="msg_zerocopy.html">MSG_ZEROCOPY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="failover.html">FAILOVER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="net_failover.html">NET_FAILOVER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alias.html">IP-Aliasing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html">Ethernet Bridging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../input/index.html">The Linux Input Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gpu/index.html">Linux GPU Driver Developer&#8217;s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sound/index.html">Linux Sound Subsystem Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../crypto/index.html">Linux Kernel Crypto API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filesystems/index.html">Linux Filesystems API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vm/index.html">Linux Memory Management Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bpf/index.html">BPF Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc-devices/index.html">Assorted Miscellaneous Devices Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sh/index.html">SuperH Interfaces Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../filesystems/ext4/index.html">ext4 Filesystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../translations/index.html">Translations</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">The Linux Kernel</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Linux Networking Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/networking/index.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="linux-networking-documentation">
+<h1>Linux Networking Documentation<a class="headerlink" href="#linux-networking-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="netdev-FAQ.html">netdev FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-what-is-netdev">Q: What is netdev?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-how-do-the-changes-posted-to-netdev-make-their-way-into-linux">Q: How do the changes posted to netdev make their way into Linux?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-how-often-do-changes-from-these-trees-make-it-to-the-mainline-linus-tree">Q: How often do changes from these trees make it to the mainline Linus tree?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-how-do-i-indicate-which-tree-net-vs-net-next-my-patch-should-be-in">Q: How do I indicate which tree (net vs. net-next) my patch should be in?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-i-sent-a-patch-and-i-m-wondering-what-happened-to-it">Q: I sent a patch and I&#8217;m wondering what happened to it?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-the-above-only-says-under-review-how-can-i-find-out-more">Q: The above only says &#8220;Under Review&#8221;.  How can I find out more?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-i-submitted-multiple-versions-of-the-patch-series">Q: I submitted multiple versions of the patch series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-how-can-i-tell-what-patches-are-queued-up-for-backporting-to-the-various-stable-releases">Q: How can I tell what patches are queued up for backporting to the various stable releases?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-i-see-a-network-patch-and-i-think-it-should-be-backported-to-stable">Q: I see a network patch and I think it should be backported to stable.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-i-have-created-a-network-patch-and-i-think-it-should-be-backported-to-stable">Q: I have created a network patch and I think it should be backported to stable.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-are-all-networking-bug-fixes-backported-to-all-stable-releases">Q: Are all networking bug fixes backported to all stable releases?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-is-the-comment-style-convention-different-for-the-networking-content">Q: Is the comment style convention different for the networking content?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-i-am-working-in-existing-code-that-has-the-former-comment-style-and-not-the-latter">Q: I am working in existing code that has the former comment style and not the latter.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-i-found-a-bug-that-might-have-possible-security-implications-or-similar">Q: I found a bug that might have possible security implications or similar.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-what-level-of-testing-is-expected-before-i-submit-my-change">Q: What level of testing is expected before I submit my change?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netdev-FAQ.html#q-any-other-tips-to-help-ensure-my-net-net-next-patch-gets-ok-d">Q: Any other tips to help ensure my net/net-next patch gets OK&#8217;d?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="af_xdp.html">AF_XDP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="af_xdp.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="af_xdp.html#concepts">Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="af_xdp.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="af_xdp.html#sample-application">Sample application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="af_xdp.html#credits">Credits</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="batman-adv.html">batman-adv</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="batman-adv.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="batman-adv.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="batman-adv.html#logging-debugging">Logging/Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="batman-adv.html#batctl">batctl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="batman-adv.html#contact">Contact</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="can.html">SocketCAN - Controller Area Network</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="can.html#overview-what-is-socketcan">Overview / What is SocketCAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="can.html#motivation-why-using-the-socket-api">Motivation / Why Using the Socket API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="can.html#socketcan-concept">SocketCAN Concept</a></li>
+<li class="toctree-l2"><a class="reference internal" href="can.html#how-to-use-socketcan">How to use SocketCAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="can.html#socketcan-core-module">SocketCAN Core Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="can.html#can-network-drivers">CAN Network Drivers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="can.html#socketcan-resources">SocketCAN Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="can.html#credits">Credits</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="can_ucan_protocol.html">The UCAN Protocol</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="can_ucan_protocol.html#usb-endpoints">USB Endpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="can_ucan_protocol.html#control-messages">CONTROL Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="can_ucan_protocol.html#in-message-format">IN Message Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="can_ucan_protocol.html#out-message-format">OUT Message Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="can_ucan_protocol.html#can-error-handling">CAN Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="can_ucan_protocol.html#example-conversation">Example Conversation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dpaa2/index.html">DPAA2 Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dpaa2/overview.html">DPAA2 (Data Path Acceleration Architecture Gen2) Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpaa2/dpio-driver.html">DPAA2 DPIO (Data Path I/O) Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpaa2/dpio-driver.html#introduction">Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="e100.html">Linux* Base Driver for the Intel(R) PRO/100 Family of Adapters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="e100.html#contents">Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="e100.html#in-this-release">In This Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="e100.html#identifying-your-adapter">Identifying Your Adapter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="e100.html#driver-configuration-parameters">Driver Configuration Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="e100.html#additional-configurations">Additional Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="e100.html#support">Support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="e1000.html">Linux* Base Driver for Intel(R) Ethernet Network Connection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="e1000.html#contents">Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="e1000.html#identifying-your-adapter">Identifying Your Adapter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="e1000.html#command-line-parameters">Command Line Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="e1000.html#speed-and-duplex-configuration">Speed and Duplex Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="e1000.html#additional-configurations">Additional Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="e1000.html#support">Support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kapi.html">Linux Networking and Network Devices APIs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kapi.html#linux-networking">Linux Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kapi.html#network-device-support">Network device support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="z8530book.html">Z8530 Programming Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="z8530book.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="z8530book.html#driver-modes">Driver Modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="z8530book.html#using-the-z85230-driver">Using the Z85230 driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="z8530book.html#attaching-network-interfaces">Attaching Network Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="z8530book.html#configuring-and-activating-the-port">Configuring And Activating The Port</a></li>
+<li class="toctree-l2"><a class="reference internal" href="z8530book.html#network-layer-functions">Network Layer Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="z8530book.html#porting-the-z8530-driver">Porting The Z8530 Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="z8530book.html#known-bugs-and-assumptions">Known Bugs And Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="z8530book.html#public-functions-provided">Public Functions Provided</a></li>
+<li class="toctree-l2"><a class="reference internal" href="z8530book.html#internal-functions">Internal Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="msg_zerocopy.html">MSG_ZEROCOPY</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="msg_zerocopy.html#intro">Intro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="msg_zerocopy.html#interface">Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="msg_zerocopy.html#implementation">Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="msg_zerocopy.html#testing">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="failover.html">FAILOVER</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="failover.html#overview">Overview</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="net_failover.html">NET_FAILOVER</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="net_failover.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="net_failover.html#virtio-net-accelerated-datapath-standby-mode">virtio-net accelerated datapath: STANDBY mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="net_failover.html#live-migration-of-a-vm-with-sr-iov-vf-virtio-net-in-standby-mode">Live Migration of a VM with SR-IOV VF &amp; virtio-net in STANDBY mode</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="alias.html">IP-Aliasing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="alias.html#alias-creation">Alias creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alias.html#alias-deletion">Alias deletion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alias.html#alias-re-configuring">Alias (re-)configuring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alias.html#relationship-with-main-device">Relationship with main device</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bridge.html">Ethernet Bridging</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="netdev-FAQ.html" class="btn btn-neutral float-right" title="netdev FAQ" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../media/cec-drivers/pulse8-cec.html" class="btn btn-neutral" title="1. Pulse-Eight CEC Adapter driver" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright The kernel development community.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
